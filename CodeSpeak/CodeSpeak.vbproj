@@ -9,11 +9,20 @@
     <ApplicationIcon>WindowsUpdateIcon.ico</ApplicationIcon>
     <Description>CodeSpeak is a free application that translates your text in a fancy code alphabet and also to the Italian famous "butterfly" alphabet</Description>
     <Copyright>2022 EdSoft - All rights reserved.</Copyright>
-    <PackageIcon>@WindowsUpdateToastIcon.png</PackageIcon>
+    <PackageIcon>logo_size.jpg</PackageIcon>
     <PackageIconUrl />
-    <Version>1.0.7</Version>
-    <Authors>Ed</Authors>
+    <Version>1.0.9</Version>
+    <Authors>EdSoft</Authors>
     <Company>EdSoft</Company>
+    <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
+    <PackageProjectUrl>http://edsoftitaly.blogspot.com</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/edsoftitaly/CodeSpeak</RepositoryUrl>
+    <RepositoryType>OpenSource</RepositoryType>
+    <NeutralLanguage>en</NeutralLanguage>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
 
   <ItemGroup>
@@ -35,7 +44,7 @@
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
     </None>
-    <None Include="..\..\..\..\..\..\Windows\System32\@WindowsUpdateToastIcon.png">
+    <None Include="..\..\..\..\Downloads\LogoSize_Pinterest_ByTailorBrands\logo_size.jpg">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>

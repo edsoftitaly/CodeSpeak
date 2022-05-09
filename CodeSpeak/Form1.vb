@@ -1,6 +1,33 @@
-﻿Imports System.Text.RegularExpressions
+﻿
+Imports System.Text.RegularExpressions
 
 Public Class Form1
+    Function ConvertToSentenceCase(TestString As String) As String
+        '~~> Declare variables
+        Dim strg2 As String, X As Long
+
+        '~~> Convert All to Lowercase
+        TestString = StrConv(TestString, vbLowerCase)
+
+        '~~> Test criteria (.!?) for the end of a sentence, then Capitalize the next letter.
+        For X = 1 To Len(TestString)
+            strg2 = Mid(TestString, X, 1)
+            If strg2 Like "[.!?]" Then
+                For Y = X + 1 To X + 10
+                    strg2 = Mid(TestString, Y, 1)
+                    If strg2 Like "[a-zA-Z]" Then
+                        Mid(TestString, Y, 1) = UCase(strg2)
+                        X = Y + 1
+                        Exit For
+                    End If
+                Next Y
+            End If
+        Next X
+        ConvertToSentenceCase = UCase(Mid(TestString, 1, 1)) & Mid(TestString, 2)
+    End Function
+
+
+
 
     Private Shared Function Cipher(input As String, oldAlphabet As String, newAlphabet As String, ByRef output As String) As Boolean
         output = String.Empty
@@ -61,13 +88,10 @@ Public Class Form1
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         EncryptedOutput.Text = NormalInput.Text.Replace("a", "afa").Replace("e", "efe").Replace("i", "ifi").Replace("o", "ofo").Replace("u", "ufu").Replace("à", "afà").Replace("è", "efè").Replace("é", "efé").Replace("ì", "ifì").Replace("ò", "ofò").Replace("ù", "ufù").Replace("A", "AFA").Replace("E", "EFE").Replace("I", "IFI").Replace("O", "OFO").Replace("U", "UFU").Replace("À", "AFÀ").Replace("È", "EFÈ").Replace("É", "EFÉ").Replace("Ì", "IFÌ").Replace("Ò", "OFÒ").Replace("Ù", "UFÙ")
-        If EncryptedOutput.TextLength > 1 Then
-            EncryptedOutput.Text = EncryptedOutput.Text.Substring(0, 1).ToUpper() + EncryptedOutput.Text.Substring(1).ToLower()
-        ElseIf EncryptedOutput.TextLength = 1 Then
-            EncryptedOutput.Text = EncryptedOutput.Text.ToUpper()
-        End If
-
+        EncryptedOutput.Text = ConvertToSentenceCase(EncryptedOutput.Text)
     End Sub
+
+
 
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
         Dim text As String = NormalInput.Text 'gets the input from the text box
