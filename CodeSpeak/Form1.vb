@@ -108,13 +108,7 @@ Public Class Form1
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        EncryptedOutput.Text = NormalInput.Text.Replace("a", "afa").Replace("e", "efe").Replace("i", "ifi").Replace("o", "ofo").Replace("u", "ufu").Replace("à", "afà").Replace("è", "efè").Replace("é", "efé").Replace("ì", "ifì").Replace("ò", "ofò").Replace("ù", "ufù").Replace("A", "AFA").Replace("E", "EFE").Replace("I", "IFI").Replace("O", "OFO").Replace("U", "UFU").Replace("À", "AFÀ").Replace("È", "EFÈ").Replace("É", "EFÉ").Replace("Ì", "IFÌ").Replace("Ò", "OFÒ").Replace("Ù", "UFÙ")
-        If EncryptedOutput.TextLength > 1 Then
-            EncryptedOutput.Text = EncryptedOutput.Text.Substring(0, 1).ToUpper() + EncryptedOutput.Text.Substring(1).ToLower()
-        ElseIf EncryptedOutput.TextLength = 1 Then
-            EncryptedOutput.Text = EncryptedOutput.Text.ToUpper()
-        End If
-
+    EncryptedOutput.Text = ConvertToFarfallino(NormalInput.text)  
     End Sub
 
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
