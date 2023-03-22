@@ -61,11 +61,43 @@ Public Class Form1
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         EncryptedOutput.Text = NormalInput.Text.Replace("a", "afa").Replace("e", "efe").Replace("i", "ifi").Replace("o", "ofo").Replace("u", "ufu").Replace("à", "afà").Replace("è", "efè").Replace("é", "efé").Replace("ì", "ifì").Replace("ò", "ofò").Replace("ù", "ufù").Replace("A", "AFA").Replace("E", "EFE").Replace("I", "IFI").Replace("O", "OFO").Replace("U", "UFU").Replace("À", "AFÀ").Replace("È", "EFÈ").Replace("É", "EFÉ").Replace("Ì", "IFÌ").Replace("Ò", "OFÒ").Replace("Ù", "UFÙ")
-        If EncryptedOutput.TextLength > 1 Then
-            EncryptedOutput.Text = EncryptedOutput.Text.Substring(0, 1).ToUpper() + EncryptedOutput.Text.Substring(1).ToLower()
-        ElseIf EncryptedOutput.TextLength = 1 Then
-            EncryptedOutput.Text = EncryptedOutput.Text.ToUpper()
+            ' Capitalizzazione del testo
+    Dim capitalizedText As String = ""
+Dim words As String() = text.Split(" ")
+For i As Integer = 0 To words.Length - 1
+    Dim word As String = words(i)
+    Dim isFirstWord As Boolean = (i = 0)
+    Dim isCapitalized As Boolean = False
+
+    If word.StartsWith(".") Then
+        ' La parola è preceduta da un punto, quindi la prima lettera deve essere capitalizzata come Ifi
+        capitalizedText += ". " + Char.ToUpper(word(1)) + word.Substring(2).ToLower()
+        isCapitalized = True
+    Else
+        ' La parola non è preceduta da un punto, quindi la prima lettera deve essere capitalizzata completamente in maiuscolo
+        capitalizedText += " " + word.ToUpper()
+        isCapitalized = True
+    End If
+
+    ' Se la parola non è la prima e non inizia con un punto, allora la prima lettera deve essere capitalizzata solo se la parola precedente termina con un punto.
+    If Not isFirstWord And Not isCapitalized Then
+        Dim previousWord As String = words(i - 1)
+        If previousWord.EndsWith(".") Then
+            capitalizedText += " " + Char.ToUpper(word(0)) + word.Substring(1).ToLower()
+        Else
+            capitalizedText += " " + word.ToLower()
         End If
+    End If
+Next
+
+    Next
+
+    ' Rimozione del primo spazio se presente
+    If capitalizedText.Length > 0 AndAlso capitalizedText(0) = " " Then
+        capitalizedText = capitalizedText.Substring(1)
+    End If
+
+    EncryptedOutput.Text = capitalizedText
 
     End Sub
 
