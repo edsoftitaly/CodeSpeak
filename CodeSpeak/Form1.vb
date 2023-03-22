@@ -1,6 +1,54 @@
-﻿Imports System.Text.RegularExpressions
+﻿Imports System.Globalization
+Imports System.Text.RegularExpressions
 
 Public Class Form1
+    Private Function ConvertToFarfallino(input As String) As String
+
+        Dim output As String = ""
+        Dim capitalizeNext As Boolean = True
+        For Each c As Char In input
+            If c = "." Then
+                capitalizeNext = True
+            End If
+
+            If Char.IsPunctuation(c) Then
+                output += c
+            Else
+                Select Case Char.ToLower(c)
+                    Case "a"
+                        output += If(capitalizeNext, "AFA", If(Char.IsUpper(c), "AFA", "afa"))
+                    Case "e"
+                        output += If(capitalizeNext, "EFE", If(Char.IsUpper(c), "EFE", "efe"))
+                    Case "i"
+                        output += If(capitalizeNext, "IFI", If(Char.IsUpper(c), "IFI", "ifi"))
+                    Case "o"
+                        output += If(capitalizeNext, "OFO", If(Char.IsUpper(c), "OFO", "ofo"))
+                    Case "u"
+                        output += If(capitalizeNext, "UFU", If(Char.IsUpper(c), "UFU", "ufu"))
+                    Case "à"
+                        output += If(capitalizeNext, "AFÀ", If(Char.IsUpper(c), "AFÀ", "afà"))
+                    Case "è"
+                        output += If(capitalizeNext, "EFÈ", If(Char.IsUpper(c), "EFÈ", "efè"))
+                    Case "é"
+                        output += If(capitalizeNext, "EFÉ", If(Char.IsUpper(c), "EFÉ", "efé"))
+                    Case "ì"
+                        output += If(capitalizeNext, "IFÌ", If(Char.IsUpper(c), "IFÌ", "ifì"))
+                    Case "ò"
+                        output += If(capitalizeNext, "OFÒ", If(Char.IsUpper(c), "OFÒ", "ofò"))
+                    Case "ù"
+                        output += If(capitalizeNext, "UFÙ", If(Char.IsUpper(c), "UFÙ", "ufù"))
+                    Case Else
+                        output += c
+                End Select
+
+                capitalizeNext = False ' Reset the flag after processing a letter.
+            End If
+        Next
+
+        Return output ' No need to use ToTitleCase here.
+    End Function
+
+
 
     Private Shared Function Cipher(input As String, oldAlphabet As String, newAlphabet As String, ByRef output As String) As Boolean
         output = String.Empty
@@ -60,13 +108,7 @@ Public Class Form1
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        EncryptedOutput.Text = NormalInput.Text.Replace("a", "afa").Replace("e", "efe").Replace("i", "ifi").Replace("o", "ofo").Replace("u", "ufu").Replace("à", "afà").Replace("è", "efè").Replace("é", "efé").Replace("ì", "ifì").Replace("ò", "ofò").Replace("ù", "ufù").Replace("A", "AFA").Replace("E", "EFE").Replace("I", "IFI").Replace("O", "OFO").Replace("U", "UFU").Replace("À", "AFÀ").Replace("È", "EFÈ").Replace("É", "EFÉ").Replace("Ì", "IFÌ").Replace("Ò", "OFÒ").Replace("Ù", "UFÙ")
-        If EncryptedOutput.TextLength > 1 Then
-            EncryptedOutput.Text = EncryptedOutput.Text.Substring(0, 1).ToUpper() + EncryptedOutput.Text.Substring(1).ToLower()
-        ElseIf EncryptedOutput.TextLength = 1 Then
-            EncryptedOutput.Text = EncryptedOutput.Text.ToUpper()
-        End If
-
+        EncryptedOutput.Text = ConvertToFarfallino(NormalInput.Text)
     End Sub
 
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
